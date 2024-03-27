@@ -18,7 +18,10 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 
 	require.Equal(t, http.StatusOK, responseRecorder.Code)
-	assert.Len(t, responseRecorder.Body.String(), totalCount)
+
+	for _, cafe := range cafeList["moscow"] {
+		assert.Contains(t, responseRecorder.Body.String(), cafe, totalCount)
+	}
 }
 
 func TestMainHandlerWhenCityIsWrong(t *testing.T) {
